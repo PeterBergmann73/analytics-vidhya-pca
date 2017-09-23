@@ -24,7 +24,9 @@ getwd()
 
 #load data
 train <- read.csv("../Data/train_Big.csv")
-test <- read.csv
+#summary(train)
+
+test <- read.csv("../Data/test_Big.csv")
 
 #check column names
 colnames(test)
@@ -81,6 +83,8 @@ pca.train <- new_my_data[1:nrow(train),]
 pca.test <- new_my_data[-(1:nrow(train)),]
 
 # we can now go with PCA
+
+
 # principal component analysis
 prin_comp <- prcomp(pca.train, scale. = T)
 names(prin_comp)
@@ -138,6 +142,13 @@ test.data <- test.data[, 1:30]
 rpart.prediction <- predict(rpart.model, test.data)
 rpart.prediction
 
+summary
+
+#for fun, check your score of leaderboard
+sample <- read.csv("../Data/SampleSubmission_TmnO39y.csv")
+final.sub <- data.frame(Item_Identifier = sample$Item_Identifier, Outlet_Identifier = sample$Outlet_Identifier, Item_Outlet_Sales = rpart.prediction)
+
+# can we do th
 #run regression
 lm.model <- lm(Item_Outlet_Sales ~ .,data = train.data)
 lm.model
